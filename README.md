@@ -1,15 +1,27 @@
 # ToNouns
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/to_nouns`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Using `MeCab` for Retrieving nouns from self.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+### Prerequisites
+
+Make sure following dependencies are installed.
+
+* `mecab`
+* `libmecab-dev`
+* `mecab-ipadic-utf8`
+
+If `Ubuntu` is running on your machine, these are how you install dependencies:
+
+```shell
+sudo apt-get install mecab libmecab-dev mecab-ipadic-utf8
+```
+
+Add this line to your application's `Gemfile`:
 
 ```ruby
-gem 'to_nouns'
+gem 'to_nouns', require: false
 ```
 
 And then execute:
@@ -22,7 +34,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The base class must have instance method `:to_s`, but not `:to_nouns`.
+
+```ruby
+require 'to_nouns'
+
+class String
+  include ToNouns
+end
+
+'私は現在、北海道旭川市に住んでいます。'.to_nouns
+=> ["私", "現在", "北海道", "旭川", "市"]
+
+'私は現在、北海道旭川市に住んでいます。'.to_nouns(general: true)
+=> ["私"]
+```
 
 ## Development
 
