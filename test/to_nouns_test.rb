@@ -1,20 +1,10 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
-class String
-  include ToNouns
-end
-
-class NoToSMethod < BasicObject; end
-
-class AlreadyHasToNouns
-  def to_nouns; end
-end
-
-####################################
-# Test starts here
-####################################
-
 class ToNounsTest < Minitest::Test
+  using ToNouns
+
   def test_that_it_has_a_version_number
     refute_nil ::ToNouns::VERSION
   end
@@ -33,25 +23,5 @@ class ToNounsTest < Minitest::Test
     str = ''
     assert_equal [], str.to_nouns
     assert_equal [], str.to_nouns(general: true)
-  end
-
-  def test_if_base_class_without_method_to_s
-    e = assert_raises NoMethodError do
-      NoToSMethod.class_exec do
-        include ToNouns
-      end
-    end
-
-    assert_equal '#to_s is required!', e.message
-  end
-
-  def test_if_base_class_has_already_defined_method_to_nouns
-    e = assert_raises NameError do
-      AlreadyHasToNouns.class_exec do
-        include ToNouns
-      end
-    end
-
-    assert_equal '#to_nouns has already defined!', e.message
   end
 end

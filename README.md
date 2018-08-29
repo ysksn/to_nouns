@@ -34,14 +34,12 @@ Or install it yourself as:
 
 ## Usage
 
-The base class must have instance method `:to_s`, but not `:to_nouns`.
+Instance method `:to_nouns` will be added to `String` class.
 
 ```ruby
 require 'to_nouns'
 
-class String
-  include ToNouns
-end
+using ToNouns
 
 '私は現在、北海道旭川市に住んでいます。'.to_nouns
 => ["私", "現在", "北海道", "旭川", "市"]
